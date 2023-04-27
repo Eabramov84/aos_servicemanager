@@ -247,10 +247,15 @@ func (runner *Runner) monitorUnitStates() {
 
 			runner.RLock()
 
-			for _, unitStatus := range changes {
+			for key, unitStatus := range changes {
+
 				if unitStatus == nil {
 					continue
 				}
+
+				log.Info("Key: ", key)
+				log.Info("data: ", *unitStatus)
+				log.Info("---------------")
 
 				startChan, ok := runner.runningUnits[unitStatus.Name]
 				if ok {
